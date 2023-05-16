@@ -28,6 +28,7 @@ import {
   SliderNoneAdjust,
 } from "./Layout.styles";
 import { useState } from "react";
+import questions from "./questions";
 
 enum options {
   "SD" = 0,
@@ -39,12 +40,17 @@ enum options {
 
 const Layout: React.FC = () => {
   const [showSlider, setShowSlider] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(9);
   const [progressWidth, setProgressWidth] = useState<number | null>(null);
   const onOptionSelect = (option: number) => {
     setSelectedOption(option);
     setProgressWidth(option * 25);
     setShowSlider(true);
+    setTimeout(() => {
+      setCurrentQuestion(currentQuestion + 1);
+      setShowSlider(false);
+    }, 300);
   };
 
   return (
@@ -70,7 +76,7 @@ const Layout: React.FC = () => {
         </StepContainer>
         <ProgessIndicator>1/20</ProgessIndicator>
         <QuestionWrapper>
-          <p>I have ambitious aims of making a difference.</p>
+          <p>{questions[currentQuestion]}</p>
         </QuestionWrapper>
         <SliderContainer>
           <Slider>

@@ -142,7 +142,7 @@ const SliderRail = styled.span`
 `;
 
 const SliderTrack = styled.span<TSliderTrackProps>`
-  left: 0;
+  left: -1%;
   ${({ progress }) => progress && `width: ${progress}%`};
   border: 5px solid #20adb4;
   display: block;
