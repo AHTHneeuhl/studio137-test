@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import questions from "./questions";
+import useAppContext from "./useAppContext";
 
 const commonStyles = css`
   text-align: center;
@@ -21,10 +22,9 @@ const QuestionWrapper = styled.div`
   ${commonStyles};
 `;
 
-type TProps = {
-  currentQuestion: number;
-};
-const Question: React.FC<TProps> = ({ currentQuestion }) => {
+const Question: React.FC = () => {
+  const { currentQuestion } = useAppContext();
+
   return (
     <>
       <ProgessIndicator>

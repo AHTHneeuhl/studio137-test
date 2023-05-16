@@ -1,11 +1,14 @@
 import { AppWrapper } from "./App.styles";
 import Layout from "./Layout";
+import AppProvider from "./AppProvider";
 
 const App = () => {
   return (
-    <AppWrapper>
-      <Layout />
-    </AppWrapper>
+    <AppProvider>
+      <AppWrapper>
+        <Layout />
+      </AppWrapper>
+    </AppProvider>
   );
 };
 

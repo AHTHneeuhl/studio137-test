@@ -15,6 +15,7 @@ import {
   SliderThumbInput,
   SliderNoneAdjust,
 } from "./Slider.styles";
+import useAppContext from "./useAppContext";
 
 enum options {
   "SD" = 0,
@@ -24,19 +25,9 @@ enum options {
   "SA" = 4,
 }
 
-type TProps = {
-  showSlider: boolean;
-  selectedOption: number;
-  progressWidth: number | null;
-  onOptionSelect: (option: number) => void;
-};
-
-const Slider: React.FC<TProps> = ({
-  showSlider,
-  progressWidth,
-  selectedOption,
-  onOptionSelect,
-}) => {
+const Slider: React.FC = () => {
+  const { showSlider, progressWidth, selectedOption, handleOptionSelect } =
+    useAppContext();
   return (
     <SliderContainer>
       <SliderWrapper>
@@ -66,35 +57,35 @@ const Slider: React.FC<TProps> = ({
         <SliderLabel
           style={{ left: "0%" }}
           active={options.SD === selectedOption}
-          onClick={() => onOptionSelect(options.SD)}
+          onClick={() => handleOptionSelect(options.SD)}
         >
           <SliderLabelText>Strongly Disagree</SliderLabelText>
         </SliderLabel>
         <SliderLabel
           style={{ left: "20%" }}
           active={options.D === selectedOption}
-          onClick={() => onOptionSelect(options.D)}
+          onClick={() => handleOptionSelect(options.D)}
         >
           <SliderLabelText>Disagree</SliderLabelText>
         </SliderLabel>
         <SliderLabel
           style={{ left: "40%" }}
           active={options.N === selectedOption}
-          onClick={() => onOptionSelect(options.N)}
+          onClick={() => handleOptionSelect(options.N)}
         >
           <SliderLabelText>Neutral</SliderLabelText>
         </SliderLabel>
         <SliderLabel
           style={{ left: "60%" }}
           active={options.A === selectedOption}
-          onClick={() => onOptionSelect(options.A)}
+          onClick={() => handleOptionSelect(options.A)}
         >
           <SliderLabelText>Agree</SliderLabelText>
         </SliderLabel>
         <SliderLabel
           style={{ left: "80%" }}
           active={options.SA === selectedOption}
-          onClick={() => onOptionSelect(options.SA)}
+          onClick={() => handleOptionSelect(options.SA)}
         >
           <SliderLabelText>Strongly Agree</SliderLabelText>
         </SliderLabel>

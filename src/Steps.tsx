@@ -1,3 +1,4 @@
+import useAppContext from "./useAppContext";
 import {
   StepContainer,
   StepItem,
@@ -6,19 +7,9 @@ import {
   StepItemText,
 } from "./Steps.styles";
 
-type TProps = {
-  idealistic: number;
-  disillusioned: number;
-  cynical: number;
-  hopeful: number;
-};
+const Steps: React.FC = () => {
+  const { idealistic, disillusioned, cynical, hopeful } = useAppContext();
 
-const Steps: React.FC<TProps> = ({
-  idealistic,
-  disillusioned,
-  cynical,
-  hopeful,
-}) => {
   return (
     <StepContainer>
       <StepItem>
