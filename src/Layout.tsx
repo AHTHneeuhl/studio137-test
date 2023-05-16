@@ -3,7 +3,7 @@ import nextArrow from "./assets/next-arrow.svg";
 import {
   LayoutContainer,
   LayoutWrapper,
-  StepItemProgress,
+  StepProgressRoot,
   StepContainer,
   StepItem,
   StepItemText,
@@ -26,6 +26,7 @@ import {
   SliderThumb,
   SliderThumbInput,
   SliderNoneAdjust,
+  StepProgressBar,
 } from "./Layout.styles";
 import { useState } from "react";
 import questions from "./questions";
@@ -43,13 +44,41 @@ const Layout: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(9);
   const [progressWidth, setProgressWidth] = useState<number | null>(null);
+  const [idealistic, setIdealistic] = useState<number>(50);
+  const [disillusioned, setDisillusioned] = useState<number>(100);
+  const [cynical, setCynical] = useState<number>(100);
+  const [hopeful, setHopeful] = useState<number>(100);
   const onOptionSelect = (option: number) => {
     setSelectedOption(option);
     setProgressWidth(option * 25);
     setShowSlider(true);
+    if (currentQuestion === 1) {
+      setIdealistic(0);
+    }
+    if (currentQuestion === 2) {
+      setDisillusioned(50);
+    }
+    if (currentQuestion === 3) {
+      setDisillusioned(0);
+    }
+    if (currentQuestion === 4) {
+      setCynical(50);
+    }
+    if (currentQuestion === 5) {
+      setCynical(0);
+    }
+    if (currentQuestion === 6) {
+      setHopeful(50);
+    }
+    if (currentQuestion === 7) {
+      setHopeful(0);
+    }
     setTimeout(() => {
-      setCurrentQuestion(currentQuestion + 1);
-      setShowSlider(false);
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+        setShowSlider(false);
+        setSelectedOption(9);
+      }
     }, 300);
   };
 
@@ -58,23 +87,33 @@ const Layout: React.FC = () => {
       <LayoutContainer>
         <StepContainer>
           <StepItem>
-            <StepItemProgress active={true} />
+            <StepProgressRoot>
+              <StepProgressBar progress={idealistic} />
+            </StepProgressRoot>
             <StepItemText active={true}>IDEALISTIC</StepItemText>
           </StepItem>
           <StepItem>
-            <StepItemProgress />
+            <StepProgressRoot>
+              <StepProgressBar progress={disillusioned} />
+            </StepProgressRoot>
             <StepItemText>DISILLUSIONED</StepItemText>
           </StepItem>
           <StepItem>
-            <StepItemProgress />
+            <StepProgressRoot>
+              <StepProgressBar progress={cynical} />
+            </StepProgressRoot>
             <StepItemText>CYNICAL</StepItemText>
           </StepItem>
           <StepItem>
-            <StepItemProgress />
+            <StepProgressRoot>
+              <StepProgressBar progress={hopeful} />
+            </StepProgressRoot>
             <StepItemText>HOPEFUL</StepItemText>
           </StepItem>
         </StepContainer>
-        <ProgessIndicator>1/20</ProgessIndicator>
+        <ProgessIndicator>
+          {currentQuestion + 1}/{questions.length}
+        </ProgessIndicator>
         <QuestionWrapper>
           <p>{questions[currentQuestion]}</p>
         </QuestionWrapper>

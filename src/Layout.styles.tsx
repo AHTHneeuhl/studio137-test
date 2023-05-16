@@ -4,7 +4,7 @@ type TTopSliderItemTextProps = {
   active?: boolean;
 };
 
-type TTopSlideItemProgressProps = {
+type TStepProgressRootProps = {
   active?: boolean;
 };
 
@@ -20,9 +20,13 @@ type TSliderThumbProps = {
   progress: number | null;
 };
 
+type TStepProgressBarProps = {
+  progress: number | null;
+};
+
 const LayoutWrapper = styled.div`
   background-color: #ffffff;
-  border-radius: 1rem;
+  border-radius: 12px;
   width: 84%;
   height: 88vh;
 `;
@@ -47,11 +51,31 @@ const StepItem = styled.div`
   width: 25%;
 `;
 
-const StepItemProgress = styled.span<TTopSlideItemProgressProps>`
-  background-color: ${(props) => (props.active ? "#20ADB4" : "#e9e9e9")};
-  border-radius: 1rem;
+const StepProgressRoot = styled.span<TStepProgressRootProps>`
+  background-color: #e9e9e9;
+  border-radius: 3px;
   height: 6px;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: 4px;
+  z-index: 0;
+`;
+
+const StepProgressBar = styled.span<TStepProgressBarProps>`
+  ${({ progress }) =>
+    progress
+      ? `transform: translateX(-${progress}%)`
+      : "transform: translateX(0%)"};
+  background: #20adb4;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  top: 0px;
+  transition: transform 0.4s linear 0s;
+  transform-origin: left center;
 `;
 
 const StepItemText = styled.div<TTopSliderItemTextProps>`
@@ -302,7 +326,8 @@ export {
   LayoutContainer,
   StepContainer,
   StepItem,
-  StepItemProgress,
+  StepProgressRoot,
+  StepProgressBar,
   StepItemText,
   ProgessIndicator,
   QuestionWrapper,
