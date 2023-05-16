@@ -20,6 +20,11 @@ import {
   SliderLabelText,
   ProgressRoot,
   ProgressBar,
+  SliderRoot,
+  SliderRail,
+  SliderTrack,
+  SliderThumb,
+  SliderThumbInput,
 } from "./Layout.styles";
 
 const Layout: React.FC = () => {
@@ -50,6 +55,13 @@ const Layout: React.FC = () => {
         </QuestionWrapper>
         <SliderContainer>
           <Slider>
+            <SliderRoot>
+              <SliderRail />
+              <SliderTrack />
+              <SliderThumb>
+                <SliderThumbInput />
+              </SliderThumb>
+            </SliderRoot>
             <SliderPoints>
               <SliderPoint style={{ opacity: 1, left: "0%" }} />
               <SliderPoint style={{ opacity: 1, left: "20%" }} />
