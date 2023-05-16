@@ -18,6 +18,8 @@ import {
   SliderLabels,
   SliderLabel,
   SliderLabelText,
+  ProgressRoot,
+  ProgressBar,
 } from "./Layout.styles";
 
 const Layout: React.FC = () => {
@@ -55,6 +57,9 @@ const Layout: React.FC = () => {
               <SliderPoint style={{ opacity: 1, left: "60%" }} />
               <SliderPoint style={{ opacity: 1, left: "80%" }} />
             </SliderPoints>
+            <ProgressRoot>
+              <ProgressBar />
+            </ProgressRoot>
           </Slider>
           <SliderLabels>
             <SliderLabel style={{ left: "0%" }}>
@@ -63,7 +68,7 @@ const Layout: React.FC = () => {
             <SliderLabel style={{ left: "20%" }}>
               <SliderLabelText>Disagree</SliderLabelText>
             </SliderLabel>
-            <SliderLabel style={{ left: "40%" }}>
+            <SliderLabel style={{ left: "40%" }} active>
               <SliderLabelText>Neutral</SliderLabelText>
             </SliderLabel>
             <SliderLabel style={{ left: "60%" }}>

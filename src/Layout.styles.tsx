@@ -1,10 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type TTopSliderItemTextProps = {
   active?: boolean;
 };
 
 type TTopSlideItemProgressProps = {
+  active?: boolean;
+};
+
+type TSliderLabelProps = {
   active?: boolean;
 };
 
@@ -76,6 +80,30 @@ const SliderContainer = styled.div`
 const Slider = styled.div`
   position: relative;
   width: 100%;
+
+  .custom-slider {
+    color: #20adb4;
+    z-index: 1000;
+  }
+`;
+
+const ProgressRoot = styled.span`
+  background-color: #e9e9e9;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: 4px;
+  z-index: 0;
+`;
+
+const ProgressBar = styled.span`
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  top: 0px;
+  transition: transform 0.4s linear 0s;
+  transform-origin: left center;
 `;
 
 const SliderPoints = styled.div`
@@ -106,11 +134,20 @@ const SliderLabels = styled.div`
   width: 125%;
 `;
 
-const SliderLabel = styled.div`
+const SliderLabel = styled.div<TSliderLabelProps>`
   cursor: pointer;
   float: left;
   position: relative;
   width: 20%;
+
+  ${({ active }) => {
+    if (active) {
+      return css`
+        color: #20adb4;
+        font-weight: 800;
+      `;
+    }
+  }};
 `;
 
 const SliderLabelText = styled.p`
@@ -158,6 +195,8 @@ export {
   QuestionWrapper,
   SliderContainer,
   Slider,
+  ProgressRoot,
+  ProgressBar,
   SliderPoints,
   SliderPoint,
   SliderLabels,
