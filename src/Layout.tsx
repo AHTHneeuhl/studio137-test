@@ -25,9 +25,28 @@ import {
   SliderTrack,
   SliderThumb,
   SliderThumbInput,
+  SliderNoneAdjust,
 } from "./Layout.styles";
+import { useState } from "react";
+
+enum options {
+  "SD" = 0,
+  "D" = 1,
+  "N" = 2,
+  "A" = 3,
+  "SA" = 4,
+}
 
 const Layout: React.FC = () => {
+  const [showSlider, setShowSlider] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(9);
+  const [progressWidth, setProgressWidth] = useState<number | null>(null);
+  const onOptionSelect = (option: number) => {
+    setSelectedOption(option);
+    setProgressWidth(option * 25);
+    setShowSlider(true);
+  };
+
   return (
     <LayoutWrapper>
       <LayoutContainer>
@@ -55,13 +74,17 @@ const Layout: React.FC = () => {
         </QuestionWrapper>
         <SliderContainer>
           <Slider>
-            <SliderRoot>
-              <SliderRail />
-              <SliderTrack />
-              <SliderThumb>
-                <SliderThumbInput />
-              </SliderThumb>
-            </SliderRoot>
+            {showSlider ? (
+              <SliderRoot>
+                <SliderRail />
+                <SliderTrack progress={progressWidth} />
+                <SliderThumb progress={progressWidth}>
+                  <SliderThumbInput />
+                </SliderThumb>
+              </SliderRoot>
+            ) : (
+              <SliderNoneAdjust />
+            )}
             <SliderPoints>
               <SliderPoint style={{ opacity: 1, left: "0%" }} />
               <SliderPoint style={{ opacity: 1, left: "20%" }} />
@@ -74,19 +97,39 @@ const Layout: React.FC = () => {
             </ProgressRoot>
           </Slider>
           <SliderLabels>
-            <SliderLabel style={{ left: "0%" }}>
+            <SliderLabel
+              style={{ left: "0%" }}
+              active={options.SD === selectedOption}
+              onClick={() => onOptionSelect(options.SD)}
+            >
               <SliderLabelText>Strongly Disagree</SliderLabelText>
             </SliderLabel>
-            <SliderLabel style={{ left: "20%" }}>
+            <SliderLabel
+              style={{ left: "20%" }}
+              active={options.D === selectedOption}
+              onClick={() => onOptionSelect(options.D)}
+            >
               <SliderLabelText>Disagree</SliderLabelText>
             </SliderLabel>
-            <SliderLabel style={{ left: "40%" }} active>
+            <SliderLabel
+              style={{ left: "40%" }}
+              active={options.N === selectedOption}
+              onClick={() => onOptionSelect(options.N)}
+            >
               <SliderLabelText>Neutral</SliderLabelText>
             </SliderLabel>
-            <SliderLabel style={{ left: "60%" }}>
+            <SliderLabel
+              style={{ left: "60%" }}
+              active={options.A === selectedOption}
+              onClick={() => onOptionSelect(options.A)}
+            >
               <SliderLabelText>Agree</SliderLabelText>
             </SliderLabel>
-            <SliderLabel style={{ left: "80%" }}>
+            <SliderLabel
+              style={{ left: "80%" }}
+              active={options.SA === selectedOption}
+              onClick={() => onOptionSelect(options.SA)}
+            >
               <SliderLabelText>Strongly Agree</SliderLabelText>
             </SliderLabel>
           </SliderLabels>

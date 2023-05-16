@@ -12,6 +12,14 @@ type TSliderLabelProps = {
   active?: boolean;
 };
 
+type TSliderTrackProps = {
+  progress: number | null;
+};
+
+type TSliderThumbProps = {
+  progress: number | null;
+};
+
 const LayoutWrapper = styled.div`
   background-color: #ffffff;
   border-radius: 1rem;
@@ -113,13 +121,12 @@ const SliderRoot = styled.span`
   box-sizing: content-box;
   display: inline-block;
   position: relative;
-  /* color: rgb(25, 118, 210); */
   cursor: pointer;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
-  height: 12px;
+  height: 4px;
   width: 100%;
-  padding: 8px 0;
+  padding: 12px 0;
 `;
 
 const SliderRail = styled.span`
@@ -128,21 +135,20 @@ const SliderRail = styled.span`
   position: absolute;
   border-radius: inherit;
   background-color: currentcolor;
-  opacity: 0.38;
   width: 100%;
   height: inherit;
   top: 50%;
   transform: translateY(-50%);
 `;
 
-const SliderTrack = styled.span`
+const SliderTrack = styled.span<TSliderTrackProps>`
   left: 0;
-  width: 50%;
+  ${({ progress }) => progress && `width: ${progress}%`};
   border: 5px solid #20adb4;
   display: block;
   position: absolute;
   border-radius: inherit;
-  border: 1px solid currentcolor;
+  /* border: 1px solid currentcolor; */
   background-color: currentcolor;
   transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -153,9 +159,9 @@ const SliderTrack = styled.span`
   transform: translateY(-50%);
 `;
 
-const SliderThumb = styled.span`
+const SliderThumb = styled.span<TSliderThumbProps>`
   background: #20adb4;
-  left: 50%;
+  ${(props) => props.progress && `left: ${props.progress}%`};
   position: absolute;
   width: 20px;
   height: 20px;
